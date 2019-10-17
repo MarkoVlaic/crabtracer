@@ -1,14 +1,14 @@
 use crate::hitable::{ Hitable, HitRecord };
 use crate::ray::Ray;
 
-type hit_vec = Vec<Box<dyn Hitable>>;
+type HitVec = Vec<Box<dyn Hitable>>;
 
 pub struct HitableList {
-    list: hit_vec
+    list: HitVec
 }
 
 impl HitableList {
-    pub fn new(list: hit_vec) -> Self {
+    pub fn new(list: HitVec) -> Self {
         HitableList { list }
     }
 }

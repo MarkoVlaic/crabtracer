@@ -19,6 +19,14 @@ impl Vec3 {
     pub fn unit_vector(v: &Vec3) -> Vec3 {
         v.clone() / v.clone().length()
     }
+
+    pub fn sqrt(&self) -> Vec3 {
+        Vec3::new(self.x.sqrt(), self.y.sqrt(), self.z.sqrt())
+    }
+
+    pub fn mul(&self, other: &Vec3) -> Vec3 {
+        Vec3::new(self.x * other.x, self.y * other.y, self.z * other.z)
+    }
 }
 
 impl ops::Add<Vec3> for Vec3 {
@@ -60,6 +68,7 @@ impl ops::Mul<Vec3> for Vec3 {
         self.x * other.x + self.y * other.y + self.z * other.z
     }
 }
+
 
 impl ops::Div<f32> for Vec3 {
     type Output = Vec3;

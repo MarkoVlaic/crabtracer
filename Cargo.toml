@@ -7,3 +7,5 @@ edition = "2018"
 [dependencies]
 image = "0.22.3"
 rand = "0.7"
+spinner = "0.4.0"
+objekt = "0.1.2"
