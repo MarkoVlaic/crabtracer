@@ -1,9 +1,9 @@
-use crate::material::Material;
+use super::material::Material;
 use crate::ray::Ray;
 use crate::vec3::Vec3;
-use crate::hitable::{ HitRecord };
+use crate::hitables::{ HitRecord };
 
-use crate::sphere::Sphere;
+use crate::hitables::Sphere;
 
 #[derive(Clone)]
 pub struct Lambertian {

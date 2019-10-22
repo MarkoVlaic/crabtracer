@@ -1,23 +1,17 @@
 mod vec3;
 mod ray;
-mod hitable;
-mod sphere;
-mod hitable_list;
 mod renderer;
 mod camera;
-mod material;
-mod lambertian;
-mod metal;
+mod materials;
+mod hitables;
 
 use crate::vec3::Vec3;
 use crate::ray::Ray;
-use crate::sphere::Sphere;
-use crate::hitable_list::HitableList;
-use crate::hitable::Hitable;
+use crate::hitables::{ Sphere, Hitable, HitableList };
 use crate::renderer::Renderer;
 use crate::camera::Camera;
-use crate::lambertian::Lambertian;
-use crate::metal::Metal;
+
+use crate::materials::{ Lambertian, Metal, Dielectric };
 
 use rand::Rng;
 use spinner::SpinnerBuilder;
@@ -49,18 +43,19 @@ fn color(r: &Ray, world: &impl Hitable, depth: u8) -> Vec3 {
 
 fn main() {
 
-    let width = 200;
-    let height = 100;
+    let width = 400;
+    let height = 200;
 
     let antialiasing_iters = 100;
 
     let mut renderer = Renderer::new(width, height);
 
     let world = HitableList::new(vec![
-        Sphere::new_boxed(Vec3::new(0.0, 0.0, -1.0), 0.5, Box::new(Lambertian::new(Vec3::new(0.3, 0.3, 0.8)))),
-        Sphere::new_boxed(Vec3::new(0.0, -100.5, -1.0), 100.0, Box::new(Lambertian::new(Vec3::new(0.8, 0.6, 0.3)))),
-        Sphere::new_boxed(Vec3::new(1.0, 0.0, -1.0), 0.5, Box::new(Metal::new(Vec3::new(0.3, 0.6, 0.4), 0.0))),
-        Sphere::new_boxed(Vec3::new(-1.0, 0.0, -1.0), 0.5, Box::new(Metal::new(Vec3::new(0.7, 0.4, 0.1), 0.0))),
+        Sphere::new_boxed(Vec3::new(0.0, 0.0, -1.0), 0.5, Box::new(Lambertian::new(Vec3::new(0.1, 0.2, 0.5)))),
+        Sphere::new_boxed(Vec3::new(0.0, -100.5, -1.0), 100.0, Box::new(Lambertian::new(Vec3::new(0.8, 0.8, 0.0)))),
+        Sphere::new_boxed(Vec3::new(1.0, 0.0, -1.0), 0.5, Box::new(Metal::new(Vec3::new(0.8, 0.6, 0.2), 0.0))),
+        Sphere::new_boxed(Vec3::new(-1.0, 0.0, -1.0), 0.5, Box::new(Dielectric::new(1.5))),
+        Sphere::new_boxed(Vec3::new(-1.0, 0.0, -1.0), -0.45, Box::new(Dielectric::new(1.5))),
     ]);
 
     let cam = Camera::new();
@@ -90,7 +85,7 @@ fn main() {
     }
 
     spinner.message("Saving image".into());
-    renderer.render("./out/seventh.png");
+    renderer.render("./out/eigth.png");
     spinner.message("Done".into());
     spinner.close();
 }

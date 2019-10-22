@@ -1,4 +1,4 @@
-use crate::hitable::{ Hitable, HitRecord };
+use super::{ Hitable, HitRecord };
 use crate::ray::Ray;
 
 type HitVec = Vec<Box<dyn Hitable>>;

@@ -78,6 +78,14 @@ impl ops::Div<f32> for Vec3 {
     }
 }
 
+impl ops::Neg for Vec3 {
+    type Output = Vec3;
+
+    fn neg(self) -> Vec3 {
+        Vec3::new(-self.x, -self.y, -self.z)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

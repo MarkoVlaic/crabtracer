@@ -1,7 +1,7 @@
-use crate::hitable::{ Hitable, HitRecord };
+use super::{ Hitable, HitRecord };
 use crate::vec3::Vec3;
 use crate::ray::Ray;
-use crate::material::Material;
+use crate::materials::material::Material;
 
 use rand::Rng;
 use objekt;
