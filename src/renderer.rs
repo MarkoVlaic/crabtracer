@@ -18,7 +18,7 @@ impl Renderer {
         Renderer { img: ImageBuffer::new(width, height), width, height, sample_rate }
     }
 
-    pub fn render_image<F>(&mut self, cam: &Camera, world: &HitableList, pixel_processed: F) 
+    pub fn render_image<F>(&mut self, cam: &Camera, world: &impl Hitable, pixel_processed: F) 
         where F: Fn(u32, u32) -> () {
         
         let mut rng = rand::thread_rng();
@@ -64,7 +64,8 @@ impl Renderer {
 
         let unit_direction = Vec3::unit_vector(&r.direction());
         let t = 0.5 * (unit_direction.y + 1.0);
-        return Vec3::new(1.0, 1.0, 1.0) * (1.0-t) + Vec3::new(0.5, 0.7, 1.0) * t;
+        return Vec3::new(1.0, 1.0, 1.0) * (1.0-t) + Vec3::new(0.2, 0.4, 1.0) * t;
+        //return Vec3::new(1.0, 0.0, 0.0);
     }
 
     fn draw_pixel(&mut self, x:u32, y:u32, color: &Vec3) {

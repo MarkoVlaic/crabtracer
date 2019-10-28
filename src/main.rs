@@ -21,13 +21,24 @@ fn main() {
 
     let mut renderer = Renderer::new(width, height, 100);
 
-    let cam = Camera::new(&Vec3::new(-2.0, 2.0, 1.0), &Vec3::new(0.0, 0.0, -1.0), &Vec3::new(0.0, 1.0, 0.0), 90.0, width as f32 / height as f32);
+    //let cam = Camera::new(&Vec3::new(-2.0, 2.0, 1.0), &Vec3::new(0.0, 0.0, -1.0), &Vec3::new(0.0, 1.0, 0.0), 90.0, width as f32 / height as f32);
     
-    //let cam = Camera::new(&Vec3::new(0.0, 0.0, 0.0), &Vec3::new(0.0, 0.0, -1.0), &Vec3::new(0.0, 1.0, 0.0), 90.0, width as f32 / height as f32);
+    let cam = Camera::new(&Vec3::new(0.0, 0.5, 0.0), &Vec3::new(0.0, 0.0, -1.0), &Vec3::new(0.0, 1.0, 0.0), 90.0, width as f32 / height as f32);
+
+    /*let world = HitableList::new(vec![
+        Sphere::new_boxed(Vec3::new(0.0, 0.0, -1.0), 0.5, Box::new(Dielectric::new(1.4))),
+        Sphere::new_boxed(Vec3::new(-1.0, 0.0, -1.0), 0.5, Box::new(Metal::new(Vec3::new(0.5, 0.3, 0.3), 0.1))),
+        Sphere::new_boxed(Vec3::new(1.0, 0.0, -1.0), 0.5, Box::new(Lambertian::new(Vec3::new(0.3, 0.6, 0.3)))),
+        Sphere::new_boxed(Vec3::new(0.0, -100.5, -1.0), 100.0, Box::new(Lambertian::new(Vec3::new(0.1, 0.7, 0.5)))),
+    ]);*/
 
     let world = HitableList::new(vec![
-        Sphere::new_boxed(Vec3::new(0.0, 0.0, -1.0), 0.5, Box::new(Lambertian::new(Vec3::new(0.1, 0.7, 0.5)))),
-        Sphere::new_boxed(Vec3::new(0.0, -100.5, -1.0), 0.5, Box::new(Lambertian::new(Vec3::new(0.8, 0.8, 0.0)))),
+        Sphere::new_boxed(Vec3::new(0.0, -100.5, -1.0), 100.0, Box::new(Lambertian::new(Vec3::new(0.1, 0.7, 0.5)))),
+        Sphere::new_boxed(Vec3::new(-1.0, 0.0, -1.0), 0.5, Box::new(Metal::new(Vec3::new(0.1, 0.2, 0.3), 0.3))),
+        Sphere::new_boxed(Vec3::new(1.0, 0.0, -1.0), 0.5, Box::new(Metal::new(Vec3::new(0.4, 0.2, 0.2), 0.1))),
+        Sphere::new_boxed(Vec3::new(0.0, 0.0, -1.3), 0.5, Box::new(Dielectric::new(1.3))),
+        Sphere::new_boxed(Vec3::new(-0.5, 0.0, -1.4), 0.2, Box::new(Lambertian::new(Vec3::new(0.1, 0.6, 0.1)))),
+        Sphere::new_boxed(Vec3::new(0.3, 0.0, -0.8), 0.2, Box::new(Lambertian::new(Vec3::new(0.3, 0.3, 0.3))))
     ]);
 
     let spinner = SpinnerBuilder::new("Creating your image...".into()).start();
@@ -37,7 +48,7 @@ fn main() {
     });
 
     spinner.message("Saving image".into());
-    renderer.output_image("./out/ningth.png");
+    renderer.output_image("./out/eleveneth.png");
     spinner.message("Done".into());
     spinner.close();
 }
