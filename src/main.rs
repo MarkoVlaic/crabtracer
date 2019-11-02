@@ -4,6 +4,7 @@ mod renderer;
 mod camera;
 mod materials;
 mod hitables;
+mod cmd_args;
 
 use crate::vec3::Vec3;
 use crate::renderer::Renderer;
@@ -12,14 +13,26 @@ use crate::camera::Camera;
 use crate::hitables::{ HitableList, Sphere };
 use crate::materials::{ Lambertian, Metal, Dielectric };
 
+use crate::cmd_args::CmdArgs;
+
 use spinner::SpinnerBuilder;
+use std::process::exit;
 
 fn main() {
 
-    let width = 400;
-    let height = 200;
+    let args = CmdArgs::new();
 
-    let mut renderer = Renderer::new(width, height, 100);
+    if let Err(e) = args {
+        eprintln!("{}", e);
+        exit(1);
+    }
+
+    let args = args.unwrap();
+
+    let width = args.width;
+    let height = args.height;
+
+    let mut renderer = Renderer::new(width, height, args.sample_rate);
 
     //let cam = Camera::new(&Vec3::new(-2.0, 2.0, 1.0), &Vec3::new(0.0, 0.0, -1.0), &Vec3::new(0.0, 1.0, 0.0), 90.0, width as f32 / height as f32);
     
@@ -48,7 +61,7 @@ fn main() {
     });
 
     spinner.message("Saving image".into());
-    renderer.output_image("./out/eleveneth.png");
+    renderer.output_image(args.filename);
     spinner.message("Done".into());
     spinner.close();
 }

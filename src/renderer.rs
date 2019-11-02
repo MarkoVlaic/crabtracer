@@ -72,7 +72,9 @@ impl Renderer {
         self.img.put_pixel(x, self.height - y - 1, image::Rgb([color.x as u8, color.y as u8, color.z as u8]));
     }
 
-    pub fn output_image(&self, filename: &'static str) {
-        self.img.save(filename).unwrap()
+    pub fn output_image(&self, filename: String) {
+        if let Err(e) = self.img.save(&filename[..]) {
+            eprintln!("{}", e);
+        }
     }
 }
